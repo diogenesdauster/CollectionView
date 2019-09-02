@@ -12,8 +12,8 @@ class ViewController: UIViewController {
     
     
     @IBOutlet private weak var collectionView: UICollectionView!
-
-    let collectionData = ["1 👻","2 🐯","3 🦉","4 🎅🏻","5 🐀","6 🎊","7 🌽","8 🎂","9 🍂","10 🎭","11 🎉","12 ☁️"]
+    
+    var collectionData = ["1 👻","2 🐯","3 🦉","4 🎅🏻","5 🐀","6 🎊","7 🌽","8 🎂","9 🍂","10 🎭","11 🎉","12 ☁️"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,22 +28,45 @@ class ViewController: UIViewController {
         // set the size up in the layout
         collectionLayout.itemSize = CGSize(width: width, height: width)
         
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(self.resfresh), for: .valueChanged)
+        collectionView.refreshControl = refresh
+        
+        
+    }
+    
+    @IBAction func addItem() {
+        
+        collectionView.performBatchUpdates ({
+            for _ in 0...1 {
+                let newItem = "\(collectionData.count + 1) 🌸"
+                collectionData.append(newItem)
+                let indexPath = IndexPath(row: collectionData.count - 1, section: 0)
+                collectionView.insertItems(at: [indexPath])
+            }
+        })
+        
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        
         if segue.identifier == "DetailSegue" {
             if let destination = segue.destination as? DetailViewController,
                 let indexPath = sender as? IndexPath {
                 destination.textDescription = collectionData[indexPath.row]
             }
-
+            
         }
-
+        
     }
-
-
+    
+    @objc func resfresh() {
+        addItem()
+        collectionView.refreshControl?.endRefreshing()
+    }
+    
+    
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -63,7 +86,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     
-
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -75,7 +98,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         
     }
     
-
+    
     
     
 }

@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     
     
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var trashButton: UIBarButtonItem!
     
     var collectionData = ["1 👻","2 🐯","3 🦉","4 🎅🏻","5 🐀","6 🎊","7 🌽","8 🎂","9 🍂","10 🎭","11 🎉","12 ☁️"]
     
@@ -32,6 +34,7 @@ class ViewController: UIViewController {
         refresh.addTarget(self, action: #selector(self.resfresh), for: .valueChanged)
         collectionView.refreshControl = refresh
         
+        navigationItem.leftBarButtonItem = editButtonItem
         
     }
     
@@ -46,6 +49,35 @@ class ViewController: UIViewController {
             }
         })
         
+    }
+    
+    @IBAction func deleteItems(){
+        
+        collectionView.performBatchUpdates({
+            if let selectedItems = collectionView.indexPathsForSelectedItems?.sorted(by: {$0.row > $1.row }) {
+//                var count = 0
+                for indexPath in selectedItems {
+//                    let row = indexPath.row - count
+//                    count += 1
+                    collectionData.remove(at: indexPath.row)
+                }
+                collectionView.deleteItems(at: selectedItems)
+            }
+        }, completion: nil)
+        
+    }
+    
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        addButton.isEnabled = !editing
+        trashButton.isEnabled = editing
+        collectionView.allowsMultipleSelection = editing
+        let indexPaths = collectionView.indexPathsForVisibleItems
+        for indexPath in indexPaths {
+            let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
+            cell.isEditing = editing
+        }
     }
     
     
@@ -76,12 +108,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
         
-        if let label = cell.viewWithTag(100) as? UILabel {
-            label.text = collectionData[indexPath.row]
-        }
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+        cell.labelTitle.text = collectionData[indexPath.row]
+        cell.isEditing = isEditing
         return cell
     }
     
@@ -92,7 +122,11 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         
         let text = collectionData[indexPath.row]
         
-        performSegue(withIdentifier: "DetailSegue", sender: indexPath )
+        if !isEditing {
+            performSegue(withIdentifier: "DetailSegue", sender: indexPath )
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+            cell.isSelected = false
+        }
         
         print("Selected \(text)")
         

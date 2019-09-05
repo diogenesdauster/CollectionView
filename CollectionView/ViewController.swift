@@ -36,6 +36,8 @@ class ViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = editButtonItem
         
+        navigationController?.isToolbarHidden = true
+        
     }
     
     @IBAction func addItem() {
@@ -55,15 +57,20 @@ class ViewController: UIViewController {
         
         collectionView.performBatchUpdates({
             if let selectedItems = collectionView.indexPathsForSelectedItems?.sorted(by: {$0.row > $1.row }) {
-//                var count = 0
+
                 for indexPath in selectedItems {
-//                    let row = indexPath.row - count
-//                    count += 1
+
                     collectionData.remove(at: indexPath.row)
                 }
+                
                 collectionView.deleteItems(at: selectedItems)
+              
+                navigationController?.isToolbarHidden = true
+                
             }
-        }, completion: nil)
+        }, completion: nil )
+        
+        
         
     }
     
@@ -77,6 +84,17 @@ class ViewController: UIViewController {
         for indexPath in indexPaths {
             let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
             cell.isEditing = editing
+        }
+        
+        
+        if !editing {
+            navigationController?.isToolbarHidden = true
+            if let selectedRows = collectionView.indexPathsForSelectedItems {
+                _ = selectedRows.map { indexPath in
+                    let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
+                    cell.isSelected = false
+                }
+            }
         }
     }
     
@@ -116,6 +134,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+
+        if isEditing {
+            if let selected = collectionView.indexPathsForSelectedItems?.count,
+                selected == 0 {
+                navigationController?.isToolbarHidden = true
+            }
+        }
+    }
+    
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -126,6 +154,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             performSegue(withIdentifier: "DetailSegue", sender: indexPath )
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
             cell.isSelected = false
+        } else {
+            navigationController?.isToolbarHidden = false
         }
         
         print("Selected \(text)")

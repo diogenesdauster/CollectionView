@@ -77,20 +77,21 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem enabled="NO" systemItem="trash" id="Y8r-sC-EW9">
+                            <connections>
+                                <action selector="deleteItems" destination="BYZ-38-t0r" id="eZA-tE-fkx"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="usP-sD-a5c">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="7tG-3V-gUd">
-                                <connections>
-                                    <action selector="addItem" destination="BYZ-38-t0r" id="k6K-9d-X8T"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem enabled="NO" systemItem="trash" id="Y8r-sC-EW9">
-                                <connections>
-                                    <action selector="deleteItems" destination="BYZ-38-t0r" id="eZA-tE-fkx"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="7tG-3V-gUd">
+                            <connections>
+                                <action selector="addItem" destination="BYZ-38-t0r" id="k6K-9d-X8T"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addButton" destination="7tG-3V-gUd" id="InP-mr-Ffk"/>
                         <outlet property="collectionView" destination="OFS-IO-5jw" id="aU1-Ec-0PQ"/>

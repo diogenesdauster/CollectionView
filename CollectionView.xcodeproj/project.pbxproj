@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2727B2222321963400404943 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2727B2212321963400404943 /* GradientView.swift */; };
+		2727B231232198B500404943 /* NationalParks.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2727B22D232198B500404943 /* NationalParks.plist */; };
+		2727B232232198B500404943 /* Park.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2727B22E232198B500404943 /* Park.swift */; };
+		2727B233232198B500404943 /* Photo Attribution.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2727B22F232198B500404943 /* Photo Attribution.txt */; };
+		2727B234232198B500404943 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2727B230232198B500404943 /* DataSource.swift */; };
 		27347A73231C405300128183 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27347A72231C405300128183 /* DetailViewController.swift */; };
 		27347A75231DFCF700128183 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27347A74231DFCF700128183 /* CollectionViewCell.swift */; };
 		275424A9231B5C5A0049F9FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275424A8231B5C5A0049F9FB /* AppDelegate.swift */; };
@@ -18,6 +23,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2727B2212321963400404943 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		2727B22D232198B500404943 /* NationalParks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NationalParks.plist; sourceTree = "<group>"; };
+		2727B22E232198B500404943 /* Park.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Park.swift; sourceTree = "<group>"; };
+		2727B22F232198B500404943 /* Photo Attribution.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Photo Attribution.txt"; sourceTree = "<group>"; };
+		2727B230232198B500404943 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		27347A72231C405300128183 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		27347A74231DFCF700128183 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		275424A5231B5C5A0049F9FB /* CollectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +51,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2727B2202321961500404943 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2727B2212321963400404943 /* GradientView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2727B223232197E400404943 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				27347A74231DFCF700128183 /* CollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2727B2242321981C00404943 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2727B230232198B500404943 /* DataSource.swift */,
+				2727B22D232198B500404943 /* NationalParks.plist */,
+				2727B22E232198B500404943 /* Park.swift */,
+				2727B22F232198B500404943 /* Photo Attribution.txt */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		2727B2352321AEC500404943 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				275424AC231B5C5A0049F9FB /* ViewController.swift */,
+				27347A72231C405300128183 /* DetailViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		2727B2362321AEE100404943 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				275424AE231B5C5A0049F9FB /* Main.storyboard */,
+				275424B1231B5C5C0049F9FB /* Assets.xcassets */,
+				275424B3231B5C5C0049F9FB /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		2754249C231B5C5A0049F9FB = {
 			isa = PBXGroup;
 			children = (
@@ -60,14 +116,13 @@
 		275424A7231B5C5A0049F9FB /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				275424A8231B5C5A0049F9FB /* AppDelegate.swift */,
+				2727B2202321961500404943 /* Views */,
+				2727B223232197E400404943 /* Cells */,
+				2727B2242321981C00404943 /* Data */,
+				2727B2362321AEE100404943 /* Resources */,
+				2727B2352321AEC500404943 /* View Controllers */,
 				275424AA231B5C5A0049F9FB /* SceneDelegate.swift */,
-				275424AC231B5C5A0049F9FB /* ViewController.swift */,
-				27347A72231C405300128183 /* DetailViewController.swift */,
-				27347A74231DFCF700128183 /* CollectionViewCell.swift */,
-				275424AE231B5C5A0049F9FB /* Main.storyboard */,
-				275424B1231B5C5C0049F9FB /* Assets.xcassets */,
-				275424B3231B5C5C0049F9FB /* LaunchScreen.storyboard */,
+				275424A8231B5C5A0049F9FB /* AppDelegate.swift */,
 				275424B6231B5C5C0049F9FB /* Info.plist */,
 			);
 			path = CollectionView;
@@ -131,6 +186,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2727B233232198B500404943 /* Photo Attribution.txt in Resources */,
+				2727B231232198B500404943 /* NationalParks.plist in Resources */,
 				275424B5231B5C5C0049F9FB /* LaunchScreen.storyboard in Resources */,
 				275424B2231B5C5C0049F9FB /* Assets.xcassets in Resources */,
 				275424B0231B5C5A0049F9FB /* Main.storyboard in Resources */,
@@ -145,9 +202,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				27347A75231DFCF700128183 /* CollectionViewCell.swift in Sources */,
+				2727B232232198B500404943 /* Park.swift in Sources */,
 				275424AD231B5C5A0049F9FB /* ViewController.swift in Sources */,
+				2727B2222321963400404943 /* GradientView.swift in Sources */,
 				275424A9231B5C5A0049F9FB /* AppDelegate.swift in Sources */,
 				275424AB231B5C5A0049F9FB /* SceneDelegate.swift in Sources */,
+				2727B234232198B500404943 /* DataSource.swift in Sources */,
 				27347A73231C405300128183 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

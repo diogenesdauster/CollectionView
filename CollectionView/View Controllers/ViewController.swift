@@ -23,7 +23,7 @@ class ViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
         
         // know the size of the screen
-        let width = (view.frame.width - 20) / 3
+        let width = (view.frame.width) / 3
         
         // pick the layout up and casted to FlowLayout because the ViewLayout doesn't have the witdh property
         let collectionLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
@@ -31,11 +31,13 @@ class ViewController: UICollectionViewController {
         // set the size up in the layout
         collectionLayout.itemSize = CGSize(width: width, height: width)
         
+        
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: #selector(self.resfresh), for: .valueChanged)
         collectionView.refreshControl = refresh
         
         navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.title = "National Parks"
         
         navigationController?.isToolbarHidden = true
         
@@ -116,7 +118,7 @@ extension ViewController  {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         if let park = dataSource.parkForItemAtIndexPath(indexPath) {
-            cell.labelTitle.text = park.name
+            cell.park = park
             cell.isEditing = isEditing
         }
         return cell

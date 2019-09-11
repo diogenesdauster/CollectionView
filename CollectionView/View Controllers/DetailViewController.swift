@@ -29,6 +29,10 @@ class DetailViewController: UIViewController {
         }
     }
     
+    override func viewDidLoad() {
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

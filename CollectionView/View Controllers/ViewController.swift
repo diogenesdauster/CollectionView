@@ -28,6 +28,9 @@ class ViewController: UICollectionViewController {
         // pick the layout up and casted to FlowLayout because the ViewLayout doesn't have the witdh property
         let collectionLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         
+        // indicating whether headers pin to the top of the collection view bounds during scrolling.
+        collectionLayout.sectionHeadersPinToVisibleBounds = true
+        
         // set the size up in the layout
         collectionLayout.itemSize = CGSize(width: width, height: width)
         
@@ -35,7 +38,7 @@ class ViewController: UICollectionViewController {
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: #selector(self.resfresh), for: .valueChanged)
         collectionView.refreshControl = refresh
-        
+                
         navigationItem.leftBarButtonItem = editButtonItem
         navigationItem.title = "National Parks"
         
@@ -79,7 +82,9 @@ class ViewController: UICollectionViewController {
     
     @IBAction func addItem() {
         
-        let index = dataSource.newRandomPark()
+        let index = dataSource.indexPathForNewRandomPark()
+        let layout = collectionView?.collectionViewLayout as! FlowLayout
+        layout.addedItem = index
         collectionView?.insertItems(at: [index])
         
     }
@@ -97,7 +102,7 @@ class ViewController: UICollectionViewController {
                 dataSource.deleteItemsAtIndexPaths(selected)
                 collectionView.deleteItems(at: selected)
                 navigationController?.isToolbarHidden = true
-
+                
             }
         }, completion: nil )
         
@@ -111,7 +116,7 @@ class ViewController: UICollectionViewController {
 extension ViewController  {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        return dataSource.numberOfParksInSection(section)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -126,7 +131,7 @@ extension ViewController  {
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-                
+        
         if !isEditing {
             let park = dataSource.parkForItemAtIndexPath(indexPath)
             performSegue(withIdentifier: "DetailSegue", sender: park )
@@ -137,7 +142,7 @@ extension ViewController  {
         
     }
     
-
+    
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
         if isEditing {
@@ -146,6 +151,25 @@ extension ViewController  {
                 navigationController?.isToolbarHidden = true
             }
         }
+    }
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return dataSource.numberOfSections
+    }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CollectionReusableHeader", for: indexPath) as! SectionHeader
+        
+        let sec = Section()
+        sec.name = dataSource.titleForSectionAtIndexPath(indexPath)
+        sec.count = dataSource.numberOfParksInSection(indexPath.section)
+        
+        view.section = sec
+        
+        return view
+        
     }
     
     

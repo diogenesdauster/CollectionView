@@ -93,7 +93,9 @@ class ViewController: UICollectionViewController {
             layout.addedItem = nil
         }
         
-
+        
+        let indexSet = IndexSet(integer: index.section)
+        collectionView?.reloadSections(indexSet)
         
         
     }
@@ -113,6 +115,16 @@ class ViewController: UICollectionViewController {
                 let layout = collectionView?.collectionViewLayout as! FlowLayout
                 layout.deletedItems = selected
                 
+                var duplicated = Set<Int>()
+                
+                selected.forEach { indexPath in
+                    duplicated.insert(indexPath.section)
+                }
+                
+                let sections = duplicated.map { $0 }
+                
+                collectionView?.reloadSections(IndexSet(sections))
+                
                 collectionView.deleteItems(at: selected)
                 navigationController?.isToolbarHidden = true
                 
@@ -120,6 +132,7 @@ class ViewController: UICollectionViewController {
         }, completion: nil )
         
         self.setEditing(false, animated: true)
+        
         
     }
     

@@ -35,8 +35,7 @@ class FlowLayout: UICollectionViewFlowLayout {
             let items = deletedItems, items.contains(itemIndexPath) else {
                 return nil
         }
-        
-        
+                        
         attributes.alpha = 1.0
         attributes.transform = CGAffineTransform(scaleX:  0.1, y: 0.1)
         attributes.zIndex = -1

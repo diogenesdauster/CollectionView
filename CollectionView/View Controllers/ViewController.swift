@@ -43,7 +43,7 @@ class ViewController: UICollectionViewController {
         navigationItem.title = "National Parks"
         
         navigationController?.isToolbarHidden = true
-        
+        installsStandardGestureForInteractiveMovement = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,7 +85,16 @@ class ViewController: UICollectionViewController {
         let index = dataSource.indexPathForNewRandomPark()
         let layout = collectionView?.collectionViewLayout as! FlowLayout
         layout.addedItem = index
-        collectionView?.insertItems(at: [index])
+        
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: [],
+                       animations: {
+                        self.collectionView?.insertItems(at: [index])
+        }) { finished in
+            layout.addedItem = nil
+        }
+        
+
+        
         
     }
     
@@ -100,6 +109,10 @@ class ViewController: UICollectionViewController {
         collectionView.performBatchUpdates({
             if let selected = collectionView.indexPathsForSelectedItems {
                 dataSource.deleteItemsAtIndexPaths(selected)
+                
+                let layout = collectionView?.collectionViewLayout as! FlowLayout
+                layout.deletedItems = selected
+                
                 collectionView.deleteItems(at: selected)
                 navigationController?.isToolbarHidden = true
                 
@@ -172,6 +185,9 @@ extension ViewController  {
         
     }
     
-    
+    override func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        dataSource.moveParkAtIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
+    }
     
 }

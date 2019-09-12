@@ -201,6 +201,7 @@ extension ViewController  {
     override func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
         dataSource.moveParkAtIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
+        collectionView.reloadSections(IndexSet([sourceIndexPath.section,destinationIndexPath.section]))
     }
     
 }
